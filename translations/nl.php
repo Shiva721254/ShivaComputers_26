@@ -51,12 +51,6 @@ return [
     'services.title' => 'Diensten',
     'services.lead' => 'Van een professionele website tot software voor uw eigen werkproces.',
     'services.heading' => 'Wat ik voor u kan bouwen',
-    'services.items' => [
-        ['title' => 'Softwareontwikkeling', 'text' => 'Software die een concreet probleem in uw bedrijf oplost, van de eerste analyse tot de oplevering.'],
-        ['title' => 'Bedrijfsapplicaties op maat', 'text' => 'Applicaties voor uw eigen werkproces, zoals een bestelsysteem, een servicedesk of een beheeromgeving.'],
-        ['title' => 'Responsieve webapplicaties', 'text' => 'Applicaties in de browser die goed werken op telefoon, tablet en computer.'],
-        ['title' => 'Professionele websites', 'text' => 'Een duidelijke website waarop klanten snel zien wat u aanbiedt en hoe zij contact opnemen.'],
-    ],
     'services.support_title' => 'Computeronderhoud en IT-ondersteuning',
     'services.support_text' => 'Shiva Computers verzorgt ook reparatie en onderhoud van computers en laptops.',
 

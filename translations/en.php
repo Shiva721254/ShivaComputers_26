@@ -51,12 +51,6 @@ return [
     'services.title' => 'Services',
     'services.lead' => 'From a professional website to software for your own way of working.',
     'services.heading' => 'What I can build for you',
-    'services.items' => [
-        ['title' => 'Software development', 'text' => 'Software that solves a specific problem in your business, from first analysis to delivery.'],
-        ['title' => 'Custom business applications', 'text' => 'Applications for your own workflow, such as an ordering system, a service desk or an admin environment.'],
-        ['title' => 'Responsive web applications', 'text' => 'Browser-based applications that work well on phone, tablet and computer.'],
-        ['title' => 'Professional websites', 'text' => 'A clear website where customers quickly see what you offer and how to contact you.'],
-    ],
     'services.support_title' => 'Computer maintenance and IT support',
     'services.support_text' => 'Shiva Computers also repairs and maintains computers and laptops.',
 
