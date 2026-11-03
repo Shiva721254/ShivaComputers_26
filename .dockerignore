@@ -1,4 +1,6 @@
 .git
+vendor
+.phpunit.cache
 .env
 .env.*
 *.log
