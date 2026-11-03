@@ -1,10 +1,20 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        COMPOSER_FLAGS: ""
     ports:
       - "8080:80"
     environment:
       APP_ENV: development
       APP_URL: http://localhost:8080
+    # Only your own code is linked, so vendor/ stays inside the image.
     volumes:
-      - .:/var/www/html:ro
+      - ./config:/var/www/html/config:ro
+      - ./data:/var/www/html/data:ro
+      - ./public:/var/www/html/public:ro
+      - ./src:/var/www/html/src:ro
+      - ./tests:/var/www/html/tests:ro
+      - ./translations:/var/www/html/translations:ro
+      - ./phpunit.xml:/var/www/html/phpunit.xml:ro
