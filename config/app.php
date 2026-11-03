@@ -12,10 +12,10 @@ return [
     'content_approved' => false,
     // A null value appears as a visible placeholder. Fill these in before go-live.
     'contact' => [
-        'email' => null,
-        'phone' => null,
-        'address' => null,
-        'kvk' => null,
-        'vat' => null,
+        'email' => 'Shiva.almere@gmail.com',
+        'phone' => '+31 6 28405019',
+        'address' => 'Fagotstraat 74, 1312 LC Almere',
+        'kvk' => '74760378',
+        'vat' => 'NL002498444B35',
     ],
 ];
