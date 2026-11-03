@@ -36,6 +36,7 @@ return [
     'field.kvk' => 'KVK-nummer',
     'field.vat' => 'btw-identificatienummer',
     'field.vat_short' => 'btw',
+    'field.availability' => 'Bereikbaar',
 
     'home.eyebrow' => 'Softwareontwikkeling en websites',
     'home.title' => 'Software en websites die passen bij uw bedrijf.',
@@ -81,16 +82,17 @@ return [
     ],
 
     'contact.title' => 'Contact',
-    'contact.lead' => 'Beschrijf kort wat u zoekt. Een contactformulier volgt in een latere versie.',
+    'contact.lead' => 'Mail of bel en beschrijf kort wat u zoekt.',
+    'contact.availability' => 'Maandag t/m vrijdag, 09:00–17:00',
     'contact.details' => 'Contactgegevens',
 
     'privacy.title' => 'Privacy',
-    'privacy.lead' => 'Concept: deze tekst moet nog worden gecontroleerd en goedgekeurd.',
+    'privacy.lead' => 'Zo gaat Shiva Computers om met persoonsgegevens op deze website.',
     'privacy.sections' => [
         ['title' => 'Wie is verantwoordelijk?', 'text' => 'Shiva Computers is verantwoordelijk voor de verwerking van persoonsgegevens op deze website. De contactgegevens staan op de contactpagina.'],
         ['title' => 'Cookies en tracking', 'text' => 'Deze website plaatst geen cookies en gebruikt geen analyse- of trackingdiensten. Er is ook geen contactformulier.'],
         ['title' => 'Hosting', 'text' => 'De website wordt gehost door STRATO. Bij een bezoek kan de hostingomgeving technische gegevens verwerken, zoals een IP-adres in serverlogboeken.'],
-        ['title' => 'Als u contact opneemt', 'text' => 'Als u mailt of belt, gebruik ik uw gegevens alleen om uw vraag te beantwoorden.'],
+        ['title' => 'Als u contact opneemt', 'text' => 'Als u mailt of belt, gebruik ik uw gegevens alleen om uw vraag te beantwoorden. Ik bewaar ze niet langer dan daarvoor nodig is, tenzij de wet een langere bewaartermijn vereist.'],
         ['title' => 'Uw rechten', 'text' => 'U kunt vragen om inzage, correctie of verwijdering van uw gegevens. U kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens.'],
     ],
 

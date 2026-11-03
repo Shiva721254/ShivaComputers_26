@@ -36,6 +36,7 @@ return [
     'field.kvk' => 'KVK number',
     'field.vat' => 'VAT number',
     'field.vat_short' => 'VAT',
+    'field.availability' => 'Available',
 
     'home.eyebrow' => 'Software development and websites',
     'home.title' => 'Software and websites that fit your business.',
@@ -81,16 +82,17 @@ return [
     ],
 
     'contact.title' => 'Contact',
-    'contact.lead' => 'Briefly describe what you are looking for. A contact form will follow in a later version.',
+    'contact.lead' => 'Email or call, and briefly describe what you are looking for.',
+    'contact.availability' => 'Monday to Friday, 09:00–17:00',
     'contact.details' => 'Contact details',
 
     'privacy.title' => 'Privacy',
-    'privacy.lead' => 'Draft: this text still needs to be reviewed and approved.',
+    'privacy.lead' => 'How Shiva Computers handles personal data on this website.',
     'privacy.sections' => [
         ['title' => 'Who is responsible?', 'text' => 'Shiva Computers is responsible for processing personal data on this website. Contact details are on the contact page.'],
         ['title' => 'Cookies and tracking', 'text' => 'This website sets no cookies and uses no analytics or tracking services. It also has no contact form.'],
         ['title' => 'Hosting', 'text' => 'The website is hosted by STRATO. When you visit, the hosting environment may process technical data, such as an IP address in server logs.'],
-        ['title' => 'If you contact me', 'text' => 'If you email or call, I use your details only to answer your question.'],
+        ['title' => 'If you contact me', 'text' => 'If you email or call, I use your details only to answer your question. I keep them no longer than needed for that, unless the law requires a longer retention period.'],
         ['title' => 'Your rights', 'text' => 'You can ask to access, correct or delete your data. You can also file a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens).'],
     ],
 
