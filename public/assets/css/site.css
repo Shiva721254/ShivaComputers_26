@@ -241,3 +241,5 @@ a:hover { color: var(--blue-dark); }
 }
 
 .text-link { display: inline-flex; align-items: center; min-height: 44px; }
+
+.contact-details a { display: inline-flex; align-items: center; min-height: 44px; }
