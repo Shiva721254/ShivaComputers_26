@@ -17,8 +17,8 @@ final class FileRepositoryTest extends TestCase
     {
         $repository = new FileProjectRepository(self::DATA . '/projects.php');
 
-        self::assertSame('Studieproject', $repository->getAll(Language::Dutch)[0]->label);
-        self::assertSame('Study project', $repository->getAll(Language::English)[0]->label);
+        self::assertSame('Studieproject, team van 4', $repository->getAll(Language::Dutch)[0]->label);
+        self::assertSame('Study project, team of 4', $repository->getAll(Language::English)[0]->label);
     }
 
     public function testOfferingsAreReturnedInTheRequestedLanguage(): void

@@ -32,6 +32,10 @@ $business = $page->business;
                 <dd><?= value_or_pending($business->phone, $t->text('field.phone')) ?></dd>
             </div>
             <div>
+                <dt><?= e($t->text('field.availability')) ?></dt>
+                <dd><?= e($t->text('contact.availability')) ?></dd>
+            </div>
+            <div>
                 <dt><?= e($t->text('field.address')) ?></dt>
                 <dd><?= value_or_pending($business->address, $t->text('field.address')) ?></dd>
             </div>
