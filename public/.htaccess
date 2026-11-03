@@ -1,0 +1,11 @@
+Options -Indexes -MultiViews
+
+RewriteEngine On
+
+# Enable after SSL is verified on STRATO (milestone 5). Test first: a wrong rule can cause a redirect loop.
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://shivacomputers.nl%{REQUEST_URI} [R=301,L]
+
+# Serve existing files directly; send everything else to the front controller.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
