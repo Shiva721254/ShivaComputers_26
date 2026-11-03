@@ -9,7 +9,7 @@ return [
         'repository' => 'https://github.com/Shiva721254/Haarlem-Festival-Project_2026',
         'stack' => ['PHP', 'MariaDB', 'Stripe', 'Docker'],
         'featured' => true,
-        'label' => ['nl' => 'Studieproject', 'en' => 'Study project'],
+        'label' => ['nl' => 'Studieproject, team van 4', 'en' => 'Study project, team of 4'],
         'description' => [
             'nl' => 'Ticketwebsite met reserveringen, Stripe-betaling in testmodus, QR-tickets, PDF-facturen en een CMS.',
             'en' => 'Ticketing website with reservations, Stripe payment in test mode, QR tickets, PDF invoices and a CMS.',
@@ -53,7 +53,7 @@ return [
            'repository' => 'https://github.com/Shiva721254/Web-Shop-Bidding',
            'stack' => ['Vue 3', 'PHP', 'MariaDB', 'JWT'],
            'featured' => false,
-           'label' => ['nl' => 'Studieproject', 'en' => 'Study project'],
+           'label' => ['nl' => 'Individueel studieproject', 'en' => 'Individual study project'],
            'description' => [
                'nl' => 'Webshop waar klanten producten kopen voor een vaste prijs of bieden op veilingen, met inloggen en een aparte REST API.',
                'en' => 'Web shop where customers buy products at a fixed price or bid on auctions, with login and a separate REST API.',
