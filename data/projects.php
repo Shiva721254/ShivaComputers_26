@@ -48,4 +48,15 @@ return [
             'en' => 'Static, responsive information website about Koningin Beatrixpark, made with semantic HTML and CSS.',
         ],
     ],
+           [
+           'name' => 'Bid Shop',
+           'repository' => 'https://github.com/Shiva721254/Web-Shop-Bidding',
+           'stack' => ['Vue 3', 'PHP', 'MariaDB', 'JWT'],
+           'featured' => false,
+           'label' => ['nl' => 'Studieproject', 'en' => 'Study project'],
+           'description' => [
+               'nl' => 'Webshop waar klanten producten kopen voor een vaste prijs of bieden op veilingen, met inloggen en een aparte REST API.',
+               'en' => 'Web shop where customers buy products at a fixed price or bid on auctions, with login and a separate REST API.',
+           ],
+       ],
 ];

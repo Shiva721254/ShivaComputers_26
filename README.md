@@ -1,55 +1,61 @@
-# Shiva Computers — Phase 1
+# Shiva Computers Website
 
-A bilingual PHP 8.2+ MVC starter for ShivaComputers.nl. No Composer packages, JavaScript frameworks or database are required for this milestone. See `SPECIFICATION.md` for scope.
+A bilingual PHP 8.2+ website for ShivaComputers.nl, built with layered MVC, Composer and FastRoute. See `docs/ARCHITECTURE.md` for the design and `SPECIFICATION.md` for scope.
 
 ## Start locally
 
-**Docker** (recommended):
+Docker installs the Composer packages inside the image, so PHP is not needed on your computer.
 
 ```bash
 docker compose up --build -d
 ```
 
-Open http://localhost:8080/nl or http://localhost:8080/en. Stop with `docker compose down`.
+Open http://localhost:8080/nl or http://localhost:8080/en. Stop with `docker compose down`. Rebuild with `--build` after changing `composer.json`.
 
-**PHP CLI** (without Docker):
+Port 8080 can only be used by one project at a time.
 
-```bash
-APP_ENV=development php -S localhost:8080 -t public public/index.php
+## Create or update composer.lock
+
+Run this once, then commit `composer.lock`. It also creates `vendor/`, which Git ignores.
+
+```powershell
+docker run --rm -v "${PWD}:/app" composer:2 update --no-interaction --no-scripts --ignore-platform-reqs
 ```
 
-On Windows PowerShell, run `$env:APP_ENV="development"` first, then the `php -S` command.
+## Run the tests
+
+```bash
+docker compose exec web vendor/bin/phpunit
+```
 
 ## Routes
 
 - `/` redirects to `/nl`
 - `/nl`, `/en`
-- `/{lang}/services`, `/portfolio`, `/about`, `/contact`, `/privacy`
+- `/{language}/services`, `/portfolio`, `/about`, `/contact`, `/privacy`
 
-## Project structure
-
-- `public/`: the only web-accessible folder (front controller, `.htaccess`, CSS, images)
-- `src/`: router, translator, view renderer and controller
-- `views/`: page templates and the shared layout
-- `translations/`: Dutch and English dictionaries
-- `data/projects.php`: portfolio projects
-- `config/app.php`: site settings and contact details
+Routes are defined in `config/routes.php`.
 
 ## Before go-live
 
-1. Fill in the contact details in `config/app.php`.
-2. Review all text, project statements, `Almere` and the privacy notice.
-3. Set `content_approved` to `true`. This removes the preview notice and allows search engines to index the pages.
-4. Keep `APP_ENV` unset on the server, so errors and screenshot placeholders stay hidden.
+1. Review all contact details in `config/app.php`, all text, project statements and the privacy notice.
+2. Set `content_approved` to `true`. This removes the preview notice and allows search engines to index the pages.
+3. Keep `APP_ENV` unset on the server, so errors and screenshot placeholders stay hidden.
 
 ## Deployment on STRATO
 
 1. In the hosting panel verify the package's PHP version, SSL and available SSH/SFTP, and set PHP >= 8.2.
-2. Preferred approach: configure the domain's **document root** (domain redirect / directory target) to the `public/` directory of the uploaded project. This keeps `src/`, `data/`, `views/`, and `translations/` outside the web root.
-3. Upload project source using **SFTP**. Check that `public/.htaccess` is present and Apache URL rewriting works.
-4. Test `/nl`, `/en`, portfolio links, and HTTPS, then enable the HTTPS redirect in `public/.htaccess`. If the web root cannot target `public/`, do **not** upload the entire project into a publicly served directory without restructuring and access restrictions.
-5. Do not deploy unfinished privacy/contact content or placeholder previews as final production content.
-6. GitHub Actions deployment is not configured in this initial phase; add it only after SSH/SFTP secrets, target directory and rollback strategy have been verified. Keep credentials in GitHub Secrets, not code.
+2. Build production packages (no test tools):
+
+   ```powershell
+   docker run --rm -v "${PWD}:/app" composer:2 install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs
+   ```
+
+3. Point the domain's **document root** at the project's `public/` directory. This keeps `src/`, `config/`, `data/`, `translations/` and `vendor/` outside the web root.
+4. Upload the project, including `vendor/`, using **SFTP**. Check that `public/.htaccess` is present and URL rewriting works.
+5. Test `/nl`, `/en`, portfolio links and HTTPS, then enable the HTTPS redirect in `public/.htaccess`. If the web root cannot target `public/`, do **not** upload the project into a publicly served directory without restructuring and access restrictions.
+6. Do not deploy unfinished privacy/contact content or placeholder previews as final production content.
+7. GitHub Actions deployment is not configured yet; add it only after SSH/SFTP secrets, target directory and rollback strategy have been verified. Keep credentials in GitHub Secrets, not code.
 
 ## Notes
 
