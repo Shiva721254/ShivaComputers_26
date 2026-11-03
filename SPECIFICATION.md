@@ -30,6 +30,10 @@ Professional blue-and-white brand. Colors: navy #10233e, primary blue #1465df, l
 - **Performance:** no external JavaScript, CDN assets, or tracking in Phase 1.
 - **Accessibility:** semantic navigation/headings, mobile layout, keyboard-visible focus. Full accessibility audit pending.
 
+## 5a. Architecture decision
+
+The site uses layered MVC with Composer and FastRoute, replacing the earlier no-Composer rule. No external packages are loaded in the browser. Services and projects stay in PHP files behind repository interfaces, with no database yet. See `docs/ARCHITECTURE.md`.
+
 ## 6. Not yet implemented
 
 Project-specific verified summaries, screenshots, business email, production privacy notice, cookie policy if required by later trackers, contact form + anti-spam + delivery, structured data, sitemap, robots, CMS, MySQL persistence, Google analytics, GitHub CI/CD and security testing.
