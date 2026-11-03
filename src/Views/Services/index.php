@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var App\ViewModels\PageViewModel $page
+ * @var App\Framework\PageTranslator $t
+ * @var list<App\Models\Offering> $offerings
+ */
+?>
 <section class="page-heading">
     <div class="wrap">
         <h1><?= e($t->text('services.title')) ?></h1>
@@ -8,22 +15,14 @@
 <section class="section section--white">
     <div class="wrap">
         <h2 class="section-heading"><?= e($t->text('services.heading')) ?></h2>
-        <ul class="service-list">
-<?php foreach ($t->items('services.items') as $service): ?>
-            <li><h3><?= e($service['title']) ?></h3><p><?= e($service['text']) ?></p></li>
-<?php endforeach; ?>
-        </ul>
+        <?= $this->partial('Partials/offering-list', ['offerings' => $offerings]) ?>
     </div>
 </section>
 
 <section class="section">
     <div class="wrap">
         <h2 class="section-heading"><?= e($t->text('process.heading')) ?></h2>
-        <ol class="steps">
-<?php foreach ($t->items('process.items') as $step): ?>
-            <li><h3><?= e($step['title']) ?></h3><p><?= e($step['text']) ?></p></li>
-<?php endforeach; ?>
-        </ol>
+        <?= $this->partial('Partials/process-steps', compact('t')) ?>
     </div>
 </section>
 
@@ -34,4 +33,4 @@
     </div>
 </section>
 
-<?php require __DIR__ . '/../partials/cta.php'; ?>
+<?= $this->partial('Partials/cta', compact('page', 't')) ?>
