@@ -9,7 +9,7 @@ return [
     // 'development' shows errors and screenshot placeholders. Production must keep the default.
     'env' => getenv('APP_ENV') ?: 'production',
     // Keep false until all content is approved: pages then show a notice and are not indexed.
-    'content_approved' => false,
+    'content_approved' => true,
     // A null value appears as a visible placeholder. Fill these in before go-live.
     'contact' => [
         'email' => 'Shiva.almere@gmail.com',
