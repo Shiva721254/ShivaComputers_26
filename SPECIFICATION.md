@@ -24,7 +24,7 @@ Professional blue-and-white brand. Colors: navy #10233e, primary blue #1465df, l
 ## 5. Core features and acceptance
 
 - **Routing:** clean SEO-friendly URLs with 404 on invalid page/language.
-- **Bilingual:** correct `lang`, canonical and `hreflang` metadata; NL default.
+- **Bilingual:** correct `lang`, canonical and `hreflang` metadata; EN default (`/` and `x-default` point to `/en`), NL as the alternative.
 - **Portfolio:** verified repo names stored in `data/projects.php`; GitHub links; screenshot placeholders only for local development.
 - **Security:** web entry point in `public`; output escaping; no secrets committed; no incomplete contact handler.
 - **Performance:** no external JavaScript, CDN assets, or tracking in Phase 1.
