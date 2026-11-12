@@ -10,7 +10,7 @@ Docker installs the Composer packages inside the image, so PHP is not needed on 
 docker compose up --build -d
 ```
 
-Open http://localhost:8080/nl or http://localhost:8080/en. Stop with `docker compose down`. Rebuild with `--build` after changing `composer.json`.
+Open http://localhost:8080/en or http://localhost:8080/nl. Stop with `docker compose down`. Rebuild with `--build` after changing `composer.json`.
 
 Port 8080 can only be used by one project at a time.
 
@@ -30,7 +30,7 @@ docker compose exec web vendor/bin/phpunit
 
 ## Routes
 
-- `/` redirects to `/nl`
+- `/` redirects to `/en` (English is the default; Dutch is at `/nl`)
 - `/nl`, `/en`
 - `/{language}/services`, `/portfolio`, `/about`, `/contact`, `/privacy`
 
