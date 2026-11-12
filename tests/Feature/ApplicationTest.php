@@ -44,12 +44,12 @@ self::assertStringContainsString('rel="canonical" href="' . $baseUrl . $path . '
         self::assertArrayHasKey('Content-Security-Policy', $response->headers);
     }
 
-    public function testRootRedirectsToDutch(): void
+    public function testRootRedirectsToEnglish(): void
     {
         $response = $this->get('/');
 
         self::assertSame(302, $response->status);
-        self::assertSame('/nl', $response->headers['Location']);
+        self::assertSame('/en', $response->headers['Location']);
     }
 
     public function testTrailingSlashRedirectsToCleanUrl(): void
@@ -77,7 +77,20 @@ self::assertStringContainsString('rel="canonical" href="' . $baseUrl . $path . '
 
     public function testNotFoundUsesTheLanguageFromThePath(): void
     {
-        self::assertStringContainsString('Page not found', $this->get('/en/nope')->body);
+        self::assertStringContainsString('<html lang="en">', $this->get('/en/nope')->body);
+        self::assertStringContainsString('<html lang="nl">', $this->get('/nl/nope')->body);
+    }
+
+    public function testNotFoundOutsideALanguageUsesEnglish(): void
+    {
+        self::assertStringContainsString('<html lang="en">', $this->get('/de')->body);
+    }
+
+    public function testDefaultLanguageIsTheHreflangDefault(): void
+    {
+        $baseUrl = (require __DIR__ . '/../../config/app.php')['base_url'];
+
+        self::assertStringContainsString('hreflang="x-default" href="' . $baseUrl . '/en"', $this->get('/nl')->body);
     }
 
     public function testPostIsNotAllowed(): void

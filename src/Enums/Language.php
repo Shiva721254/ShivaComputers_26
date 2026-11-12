@@ -9,7 +9,8 @@ enum Language: string
     case Dutch = 'nl';
     case English = 'en';
 
-    public const DEFAULT = self::Dutch;
+    /** English is the default for `/` and for pages outside a language prefix; Dutch is the alternative. */
+    public const DEFAULT = self::English;
 
     public function other(): self
     {
@@ -19,6 +20,6 @@ enum Language: string
     /** Picks the language for a page without a route, such as a 404. */
     public static function fromPath(string $path): self
     {
-        return preg_match('#^/en(/|$)#D', $path) === 1 ? self::English : self::DEFAULT;
+        return preg_match('#^/(nl|en)(/|$)#D', $path, $match) === 1 ? self::from($match[1]) : self::DEFAULT;
     }
 }
