@@ -12,6 +12,7 @@ enum Page: string
     case About = 'about';
     case Contact = 'contact';
     case Privacy = 'privacy';
+    case RemoteSupport = 'remote-support';
     case NotFound = 'not-found';
 
     /** @return list<self> */
@@ -37,6 +38,7 @@ enum Page: string
             self::About => 'About/index',
             self::Contact => 'Contact/index',
             self::Privacy => 'Privacy/index',
+            self::RemoteSupport => 'RemoteSupport/index',
             self::NotFound => 'Errors/not-found',
         };
     }

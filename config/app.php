@@ -11,6 +11,10 @@ return [
     // Keep false until all content is approved: pages then show a notice and are not indexed.
     'content_approved' => true,
     // A null value appears as a visible placeholder. Fill these in before go-live.
+    // Remote support portal (separate app on the VPS). Leave null until the portal passes its
+    // production gate: the page then asks visitors to call, and /hulp and /help open that page.
+    // Example: 'https://remote.shivacomputers.nl'. The REMOTE_SUPPORT_URL environment variable overrides it.
+    'remote_support_url' => getenv('REMOTE_SUPPORT_URL') ?: null,
     'contact' => [
         'email' => 'Shiva.almere@gmail.com',
         'phone' => '+31 6 28405019',

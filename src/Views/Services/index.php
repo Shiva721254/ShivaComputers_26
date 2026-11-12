@@ -30,6 +30,7 @@
     <div class="wrap prose">
         <h2><?= e($t->text('services.support_title')) ?></h2>
         <p><?= e($t->text('services.support_text')) ?></p>
+        <p><a class="text-link" href="<?= e($page->url('/remote-support')) ?>"><?= e($t->text('services.support_link')) ?></a></p>
     </div>
 </section>
 

@@ -32,9 +32,21 @@ docker compose exec web vendor/bin/phpunit
 
 - `/` redirects to `/en` (English is the default; Dutch is at `/nl`)
 - `/nl`, `/en`
-- `/{language}/services`, `/portfolio`, `/about`, `/contact`, `/privacy`
+- `/{language}/services`, `/portfolio`, `/about`, `/contact`, `/privacy`, `/remote-support`
+- `/hulp` and `/help` short links for remote support (see below)
 
 Routes are defined in `config/routes.php`.
+
+## Remote support
+
+`/{language}/remote-support` explains the remote computer help service. The sessions themselves run in the separate support portal (`shiva-remote-portal`, on the VPS at `remote.shivacomputers.nl`). This website only links to it, so it stays free of cookies, forms and a database.
+
+| Setting `remote_support_url` in `config/app.php` | Page shows | `/hulp` and `/help` open |
+|---|---|---|
+| `null` (default) | A call button with the business phone number | The remote-support page |
+| `'https://remote.shivacomputers.nl'` | An "Enter your code" button | The portal in Dutch or English |
+
+Only an `https` address without a path is accepted, so the short links cannot be misused as an open redirect. Set it after the portal has passed its production gate. The environment variable `REMOTE_SUPPORT_URL` overrides the setting, for example `http://localhost:8081` when the portal lab runs next to this site.
 
 ## Before go-live
 
