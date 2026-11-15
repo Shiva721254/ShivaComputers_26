@@ -65,16 +65,20 @@ final class ProductsTest extends TestCase
     }
 
     #[DataProvider('languages')]
-    public function testMenuShowsTheProductsFirstInTheAgreedOrder(string $language, string $remoteLabel): void
+    public function testSharedMenuGroupsEverythingInFiveItems(string $language, string $remoteLabel): void
     {
         $menu = self::navigation($this->get('/' . $language)->body);
 
+        self::assertSame(5, substr_count($menu, '<li><a class="snav-link') + substr_count($menu, '<li class="snav-group">'));
         self::assertInOrder([
-            'href="/' . $language . '/services">Software &amp; websites</a>',
-            'href="https://rescue.shivacomputers.nl/' . $language . '" class="is-external">Rescue OS</a>',
-            'href="https://assist.shivacomputers.nl/' . $language . '" class="is-external">Shiva Assist</a>',
-            'href="/' . $language . '/remote-support">' . $remoteLabel . '</a>',
+            'href="/' . $language . '"',
+            '<summary class="snav-link">Software &amp; websites</summary>',
+            'href="/' . $language . '/services"',
             'href="/' . $language . '/portfolio"',
+            '<summary class="snav-link">' . ($language === 'nl' ? 'Computerhulp' : 'Computer help') . '</summary>',
+            'href="https://rescue.shivacomputers.nl/' . $language . '"',
+            'href="https://assist.shivacomputers.nl/' . $language . '"',
+            'href="/' . $language . '/remote-support"><strong>' . $remoteLabel,
             'href="/' . $language . '/about"',
             'href="/' . $language . '/contact"',
         ], $menu);
@@ -113,9 +117,10 @@ final class ProductsTest extends TestCase
     public static function currentPages(): array
     {
         return [
-            'services' => ['/en/services', 'href="/en/services" aria-current="page">Software &amp; websites</a>'],
-            'remote support' => ['/nl/remote-support', 'href="/nl/remote-support" aria-current="page">Hulp op afstand</a>'],
-            'portfolio' => ['/en/portfolio', 'href="/en/portfolio" aria-current="page">'],
+            'home' => ['/en', 'class="snav-link is-active" href="/en" aria-current="page">Home</a>'],
+            'services' => ['/en/services', 'href="/en/services" aria-current="page"><strong>Services'],
+            'remote support' => ['/nl/remote-support', 'href="/nl/remote-support" aria-current="page"><strong>Hulp op afstand'],
+            'about' => ['/nl/about', 'href="/nl/about" aria-current="page">Over</a>'],
         ];
     }
 
@@ -125,23 +130,41 @@ final class ProductsTest extends TestCase
         self::assertStringContainsString($expected, self::navigation($this->get($path)->body));
     }
 
-    public function testHomeIsReachedThroughTheLogoNotTheMenu(): void
+    public function testDropdownOfTheCurrentPageIsHighlighted(): void
     {
-        $body = $this->get('/en')->body;
+        $menu = self::navigation($this->get('/en/portfolio')->body);
 
-        self::assertStringContainsString('<a class="brand" href="/en">', $body);
-        self::assertStringNotContainsString('>Home</a>', self::navigation($body));
+        self::assertStringContainsString('<summary class="snav-link is-active">Software &amp; websites</summary>', $menu);
+        self::assertStringContainsString('<summary class="snav-link">Computer help</summary>', $menu);
     }
 
-    public function testPhoneMenuContainsTheSameLinksAndWorksWithoutJavaScript(): void
+    public function testLogoLinksToTheHomePage(): void
+    {
+        self::assertStringContainsString('<a class="snav-brand" href="/nl"', $this->get('/nl/contact')->body);
+    }
+
+    public function testPhoneMenuHasEveryLinkAndNeedsNoJavaScript(): void
     {
         $body = $this->get('/nl/about')->body;
-        $phone = substr($body, (int) strpos($body, '<details class="nav-menu">'));
+        $desktop = self::navigation($body);
+        $phone = substr($body, (int) strpos($body, '<details class="snav-mobile">'));
         $phone = substr($phone, 0, (int) strpos($phone, '</details>'));
 
         self::assertStringContainsString('<summary>Menu</summary>', $phone);
-        self::assertSame(substr_count(self::navigation($body), '<li>'), substr_count($phone, '<li>'));
+        self::assertSame(substr_count($desktop, 'href='), substr_count($phone, 'href=') - 1, 'Phone menu = desktop links + language');
         self::assertStringNotContainsString('<script', $body);
+    }
+
+    public function testLanguageSwitchKeepsThePageAndIsWrittenInTheTargetLanguage(): void
+    {
+        $body = $this->get('/en/portfolio')->body;
+
+        self::assertStringContainsString('<a class="snav-lang" href="/nl/portfolio" hreflang="nl" lang="nl" title="Bekijk deze pagina in het Nederlands">Nederlands</a>', $body);
+    }
+
+    public function testSharedStylesheetIsLoadedBeforeTheSiteStylesheet(): void
+    {
+        self::assertInOrder(['/assets/shiva-nav/shiva-nav.css', '/assets/css/site.css'], $this->get('/en')->body);
     }
 
     public function testProductSiteAddressesCanBeConfigured(): void
@@ -197,7 +220,6 @@ final class ProductsTest extends TestCase
                 foreach (['tag', 'title', 'text', 'link'] as $field) {
                     self::assertArrayHasKey('products.' . $product->value . '.' . $field, $texts);
                 }
-                self::assertArrayHasKey('nav.product.' . $product->value, $texts);
             }
         }
     }

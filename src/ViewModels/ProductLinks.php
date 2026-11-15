@@ -8,6 +8,10 @@ use App\Enums\Language;
 use App\Enums\Page;
 use App\Enums\Product;
 use App\Framework\Translator;
+use ShivaNav\Navigation;
+
+// The address rule is shared with the menu kit, so both use exactly the same check.
+require_once dirname(__DIR__, 2) . '/shiva-nav/Navigation.php';
 
 /**
  * Resolves where each product lives, in the visitor's language:
@@ -57,22 +61,10 @@ final class ProductLinks
         );
     }
 
-    /**
-     * Only an absolute https address without path, query, fragment or credentials, so a wrong setting
-     * can never turn the menu into a link to somewhere unexpected. http://localhost only in development.
-     */
+    /** Same rule as the shared menu: absolute https without path, query or credentials; http://localhost only in development. */
     public static function isSafeSiteUrl(string $url, bool $allowLocalHttp = false): bool
     {
-        $parts = parse_url($url);
-        if ($parts === false || !isset($parts['scheme'], $parts['host'])
-            || isset($parts['query']) || isset($parts['fragment']) || isset($parts['user']) || isset($parts['pass'])) {
-            return false;
-        }
-        if (($parts['path'] ?? '') !== '' && $parts['path'] !== '/') {
-            return false;
-        }
-
-        return $parts['scheme'] === 'https' || ($allowLocalHttp && $parts['scheme'] === 'http' && $parts['host'] === 'localhost');
+        return Navigation::isSafeBaseUrl($url, $allowLocalHttp);
     }
 
     private function text(Language $language, Product $product, string $field): string

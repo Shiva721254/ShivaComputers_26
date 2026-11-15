@@ -72,12 +72,12 @@ final class RemoteSupportTest extends TestCase
         self::assertStringContainsString('Enter your code', $body);
     }
 
-    public function testPageIsInTheMainNavigationAndInTheFooter(): void
+    public function testPageIsInTheComputerHelpMenuAndInTheFooter(): void
     {
         $body = $this->get($this->application(null), '/nl')->body;
         $navigation = substr($body, strpos($body, '<nav'), strpos($body, '</nav>') - strpos($body, '<nav'));
 
-        self::assertStringContainsString('href="/nl/remote-support">Hulp op afstand</a>', $navigation);
+        self::assertStringContainsString('href="/nl/remote-support"><strong>Hulp op afstand', $navigation);
         self::assertStringContainsString('href="/nl/remote-support"', substr($body, strpos($body, '<footer')));
     }
 

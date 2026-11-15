@@ -29,12 +29,8 @@ return [
     'nav.contact' => 'Contact',
     'nav.privacy' => 'Privacy',
     'nav.remote' => 'Hulp op afstand',
+    'nav.switch_title' => 'View this page in English',
     'nav.switch' => 'English',
-    'nav.menu' => 'Menu',
-    'nav.product.software' => 'Software & websites',
-    'nav.product.rescue' => 'Rescue OS',
-    'nav.product.assist' => 'Shiva Assist',
-    'nav.product.remote' => 'Hulp op afstand',
 
     'notice.preview' => 'Voorbeeldversie: de inhoud van deze website is nog niet definitief.',
 

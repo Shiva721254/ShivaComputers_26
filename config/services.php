@@ -33,6 +33,9 @@ use App\ViewModels\ProductLinks;
  * Moving projects to MySQL later means changing one line here.
  */
 return static function (Container $c, array $config, string $root): void {
+    // The shared Shiva Computers menu (identical copy in every site, see shiva-nav/README.md).
+    require_once $root . '/shiva-nav/Navigation.php';
+
     // Repositories
     $c->set(IProjectRepository::class, fn () => new FileProjectRepository($root . '/data/projects.php'));
     $c->set(IOfferingRepository::class, fn () => new FileOfferingRepository($root . '/data/offerings.php'));
@@ -51,13 +54,18 @@ return static function (Container $c, array $config, string $root): void {
         $config['product_sites'],
         $config['env'] === 'development',
     ));
+    $c->set(ShivaNav\Navigation::class, fn () => new ShivaNav\Navigation(
+        ['main' => $config['base_url'], 'rescue' => $config['product_sites']['rescue'], 'assist' => $config['product_sites']['assist']],
+        'main',
+        $config['env'] === 'development',
+    ));
     $c->set(PageViewModelFactory::class, fn (Container $c) => new PageViewModelFactory(
         $c->get(Translator::class),
         $c->get(IBusinessDetailsService::class),
         $config['base_url'],
         $config['content_approved'],
         $config['env'] === 'development',
-        $c->get(ProductLinks::class),
+        $c->get(ShivaNav\Navigation::class),
     ));
 
     // Controllers

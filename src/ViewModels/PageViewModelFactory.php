@@ -6,9 +6,9 @@ namespace App\ViewModels;
 
 use App\Enums\Language;
 use App\Enums\Page;
-use App\Enums\Product;
 use App\Framework\Translator;
 use App\Services\Interfaces\IBusinessDetailsService;
+use ShivaNav\Navigation;
 
 final class PageViewModelFactory
 {
@@ -18,7 +18,7 @@ final class PageViewModelFactory
         private readonly string $baseUrl,
         private readonly bool $contentApproved,
         private readonly bool $isDevelopment,
-        private readonly ProductLinks $products,
+        private readonly Navigation $navigation,
     ) {
     }
 
@@ -37,7 +37,12 @@ final class PageViewModelFactory
                 'en' => $this->baseUrl . $page->path(Language::English),
                 'x-default' => $this->baseUrl . $page->path(Language::DEFAULT),
             ] : [],
-            navigation: $this->navigation($language, $page),
+            shivaNav: $this->navigation->build($language->value, $page->navigationKey(), [[
+                'code' => $language->other()->value,
+                'name' => $this->translator->text($language, 'nav.switch'),
+                'title' => $this->translator->text($language, 'nav.switch_title'),
+                'url' => $page->path($language->other()),
+            ]]),
             languageSwitchUrl: $page->path($language->other()),
             otherLanguage: $language->other(),
             business: $this->businessDetails->get(),
@@ -46,26 +51,4 @@ final class PageViewModelFactory
         );
     }
 
-    /**
-     * Main menu: the four products in their fixed order, then Portfolio, About and Contact.
-     *
-     * @return list<NavigationItem>
-     */
-    private function navigation(Language $language, Page $current): array
-    {
-        $items = [];
-        foreach (Product::ordered() as $product) {
-            $items[] = new NavigationItem(
-                $this->translator->text($language, 'nav.product.' . $product->value),
-                $this->products->url($product, $language),
-                $product->page() === $current,
-                $product->isExternal(),
-            );
-        }
-        foreach (Page::navigation() as $item) {
-            $items[] = new NavigationItem($this->translator->text($language, 'nav.' . $item->value), $item->path($language), $item === $current);
-        }
-
-        return $items;
-    }
 }

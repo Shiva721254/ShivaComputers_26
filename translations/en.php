@@ -29,12 +29,8 @@ return [
     'nav.contact' => 'Contact',
     'nav.privacy' => 'Privacy',
     'nav.remote' => 'Remote help',
+    'nav.switch_title' => 'Bekijk deze pagina in het Nederlands',
     'nav.switch' => 'Nederlands',
-    'nav.menu' => 'Menu',
-    'nav.product.software' => 'Software & websites',
-    'nav.product.rescue' => 'Rescue OS',
-    'nav.product.assist' => 'Shiva Assist',
-    'nav.product.remote' => 'Remote help',
 
     'notice.preview' => 'Preview version: the content of this website is not final yet.',
 
