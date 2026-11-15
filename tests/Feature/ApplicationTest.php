@@ -24,7 +24,7 @@ final class ApplicationTest extends TestCase
     {
         $paths = [];
         foreach (['nl', 'en'] as $language) {
-            foreach (['', '/services', '/portfolio', '/about', '/contact', '/privacy'] as $page) {
+            foreach (['', '/services', '/portfolio', '/about', '/contact', '/privacy', '/remote-support'] as $page) {
                 $paths[$language . $page] = ['/' . $language . $page, $language];
             }
         }

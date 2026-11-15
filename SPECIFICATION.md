@@ -15,7 +15,9 @@ Businesses, entrepreneurs and prospective software collaborators. Main visitor j
 
 ## 3. Information architecture
 
-Public routes have language prefixes `/nl` and `/en`: Home, Services, Portfolio, About, Contact, Privacy. Navigation and key copy translated in separate PHP dictionaries. Language switch retains the current route.
+Public routes have language prefixes `/nl` and `/en`: Home, Services, Portfolio, About, Contact, Privacy, Remote support. Navigation and key copy translated in separate PHP dictionaries. Language switch retains the current route.
+
+Remote support (`/{lang}/remote-support`) is linked from the Services page and the footer, not the main menu, so software development stays the primary positioning. The short links `/hulp` and `/help` go to the support portal when `remote_support_url` is set, otherwise to the information page. The portal is a separate application (`shiva-remote-portal`) and is specified in *Shiva Remote Support — Architecture & Design v3*.
 
 ## 4. Visual system
 
