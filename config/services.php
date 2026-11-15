@@ -8,6 +8,7 @@ use App\Controllers\ErrorController;
 use App\Controllers\HomeController;
 use App\Controllers\PortfolioController;
 use App\Controllers\PrivacyController;
+use App\Controllers\RemoteSupportController;
 use App\Controllers\ServiceController;
 use App\Framework\Container;
 use App\Framework\Translator;
@@ -61,5 +62,8 @@ return static function (Container $c, array $config, string $root): void {
     $c->set(AboutController::class, fn (Container $c) => new AboutController(...$presentation($c)));
     $c->set(ContactController::class, fn (Container $c) => new ContactController(...$presentation($c)));
     $c->set(PrivacyController::class, fn (Container $c) => new PrivacyController(...$presentation($c)));
+    $c->set(RemoteSupportController::class, fn (Container $c) => new RemoteSupportController(
+        ...[...$presentation($c), RemoteSupportController::validPortalUrl($config['remote_support_url'] ?? null, $config['env'] === 'development')],
+    ));
     $c->set(ErrorController::class, fn (Container $c) => new ErrorController(...$presentation($c)));
 };

@@ -50,7 +50,10 @@
     <div class="wrap">
         <p><?= e($page->business->name) ?> · <?= value_or_pending($page->business->address, $t->text('field.address')) ?></p>
         <p>KVK <?= value_or_pending($page->business->kvk, $t->text('field.kvk')) ?> · <?= e($t->text('field.vat_short')) ?> <?= value_or_pending($page->business->vat, $t->text('field.vat')) ?></p>
-        <a href="<?= e($page->url('/privacy')) ?>"><?= e($t->text('nav.privacy')) ?></a>
+        <p class="footer-links">
+            <a href="<?= e($page->url('/remote-support')) ?>"><?= e($t->text('nav.remote')) ?></a>
+            <a href="<?= e($page->url('/privacy')) ?>"><?= e($t->text('nav.privacy')) ?></a>
+        </p>
     </div>
 </footer>
 </body>
