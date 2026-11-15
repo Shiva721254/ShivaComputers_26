@@ -20,7 +20,7 @@
     <link rel="alternate" hreflang="<?= e($hreflang) ?>" href="<?= e($url) ?>">
 <?php endforeach; ?>
     <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=2">
 </head>
 <body>
 <a class="skip-link" href="#main"><?= e($t->text('nav.skip')) ?></a>
@@ -33,14 +33,23 @@
             <img src="/assets/img/favicon.svg" alt="" width="32" height="32">
             <?= e($page->business->name) ?>
         </a>
-        <nav class="site-nav" aria-label="<?= e($t->text('nav.label')) ?>">
+<?php ob_start(); ?>
             <ul>
 <?php foreach ($page->navigation as $item): ?>
-                <li><a href="<?= e($item->url) ?>"<?= $item->isCurrent ? ' aria-current="page"' : '' ?>><?= e($item->label) ?></a></li>
+                <li><a href="<?= e($item->url) ?>"<?= $item->isCurrent ? ' aria-current="page"' : '' ?><?= $item->isExternal ? ' class="is-external"' : '' ?>><?= e($item->label) ?></a></li>
 <?php endforeach; ?>
             </ul>
             <a class="lang-switch" href="<?= e($page->languageSwitchUrl) ?>" lang="<?= e($page->otherLanguage->value) ?>" hreflang="<?= e($page->otherLanguage->value) ?>"><?= e($t->text('nav.switch')) ?></a>
+<?php $menu = (string) ob_get_clean(); ?>
+        <nav class="site-nav" aria-label="<?= e($t->text('nav.label')) ?>">
+<?= $menu ?>
         </nav>
+        <details class="nav-menu">
+            <summary><?= e($t->text('nav.menu')) ?></summary>
+            <nav class="nav-menu-panel" aria-label="<?= e($t->text('nav.label')) ?>">
+<?= $menu ?>
+            </nav>
+        </details>
     </div>
 </header>
 <main id="main">

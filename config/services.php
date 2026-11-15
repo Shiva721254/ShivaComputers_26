@@ -26,6 +26,7 @@ use App\Services\Interfaces\IProjectService;
 use App\Services\OfferingService;
 use App\Services\ProjectService;
 use App\ViewModels\PageViewModelFactory;
+use App\ViewModels\ProductLinks;
 
 /**
  * The one place that decides which class implements each interface.
@@ -45,18 +46,24 @@ return static function (Container $c, array $config, string $root): void {
     // Presentation
     $c->set(Translator::class, fn () => new Translator($root . '/translations'));
     $c->set(View::class, fn () => new View($root . '/src/Views'));
+    $c->set(ProductLinks::class, fn (Container $c) => new ProductLinks(
+        $c->get(Translator::class),
+        $config['product_sites'],
+        $config['env'] === 'development',
+    ));
     $c->set(PageViewModelFactory::class, fn (Container $c) => new PageViewModelFactory(
         $c->get(Translator::class),
         $c->get(IBusinessDetailsService::class),
         $config['base_url'],
         $config['content_approved'],
         $config['env'] === 'development',
+        $c->get(ProductLinks::class),
     ));
 
     // Controllers
     $presentation = fn (Container $c): array => [$c->get(View::class), $c->get(PageViewModelFactory::class), $c->get(Translator::class)];
 
-    $c->set(HomeController::class, fn (Container $c) => new HomeController(...[...$presentation($c), $c->get(IOfferingService::class), $c->get(IProjectService::class)]));
+    $c->set(HomeController::class, fn (Container $c) => new HomeController(...[...$presentation($c), $c->get(IOfferingService::class), $c->get(IProjectService::class), $c->get(ProductLinks::class)]));
     $c->set(ServiceController::class, fn (Container $c) => new ServiceController(...[...$presentation($c), $c->get(IOfferingService::class)]));
     $c->set(PortfolioController::class, fn (Container $c) => new PortfolioController(...[...$presentation($c), $c->get(IProjectService::class)]));
     $c->set(AboutController::class, fn (Container $c) => new AboutController(...$presentation($c)));

@@ -15,6 +15,12 @@ return [
     // production gate: the page then asks visitors to call, and /hulp and /help open that page.
     // Example: 'https://remote.shivacomputers.nl'. The REMOTE_SUPPORT_URL environment variable overrides it.
     'remote_support_url' => getenv('REMOTE_SUPPORT_URL') ?: null,
+    // Product sites on their own subdomain, linked from the main menu and the home page.
+    // Only https addresses without a path are accepted. Override locally with the environment variables.
+    'product_sites' => [
+        'rescue' => getenv('RESCUE_SITE_URL') ?: 'https://rescue.shivacomputers.nl',
+        'assist' => getenv('ASSIST_SITE_URL') ?: 'https://assist.shivacomputers.nl',
+    ],
     'contact' => [
         'email' => 'Shiva.almere@gmail.com',
         'phone' => '+31 6 28405019',

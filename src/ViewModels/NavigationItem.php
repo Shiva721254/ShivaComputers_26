@@ -10,6 +10,7 @@ final readonly class NavigationItem
         public string $label,
         public string $url,
         public bool $isCurrent,
+        public bool $isExternal = false,
     ) {
     }
 }

@@ -15,10 +15,15 @@ enum Page: string
     case RemoteSupport = 'remote-support';
     case NotFound = 'not-found';
 
-    /** @return list<self> */
+    /**
+     * Pages in the main menu after the products (see Product::ordered()).
+     * Home is reached through the logo, Services through "Software & websites".
+     *
+     * @return list<self>
+     */
     public static function navigation(): array
     {
-        return [self::Home, self::Services, self::Portfolio, self::About, self::Contact];
+        return [self::Portfolio, self::About, self::Contact];
     }
 
     public function path(Language $language): string

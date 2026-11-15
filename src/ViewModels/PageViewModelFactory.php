@@ -6,6 +6,7 @@ namespace App\ViewModels;
 
 use App\Enums\Language;
 use App\Enums\Page;
+use App\Enums\Product;
 use App\Framework\Translator;
 use App\Services\Interfaces\IBusinessDetailsService;
 
@@ -17,6 +18,7 @@ final class PageViewModelFactory
         private readonly string $baseUrl,
         private readonly bool $contentApproved,
         private readonly bool $isDevelopment,
+        private readonly ProductLinks $products,
     ) {
     }
 
@@ -35,19 +37,35 @@ final class PageViewModelFactory
                 'en' => $this->baseUrl . $page->path(Language::English),
                 'x-default' => $this->baseUrl . $page->path(Language::DEFAULT),
             ] : [],
-            navigation: array_map(
-                fn (Page $item): NavigationItem => new NavigationItem(
-                    $this->translator->text($language, 'nav.' . $item->value),
-                    $item->path($language),
-                    $item === $page,
-                ),
-                Page::navigation(),
-            ),
+            navigation: $this->navigation($language, $page),
             languageSwitchUrl: $page->path($language->other()),
             otherLanguage: $language->other(),
             business: $this->businessDetails->get(),
             showPreviewNotice: !$this->contentApproved,
             showScreenshotPlaceholders: $this->isDevelopment,
         );
+    }
+
+    /**
+     * Main menu: the four products in their fixed order, then Portfolio, About and Contact.
+     *
+     * @return list<NavigationItem>
+     */
+    private function navigation(Language $language, Page $current): array
+    {
+        $items = [];
+        foreach (Product::ordered() as $product) {
+            $items[] = new NavigationItem(
+                $this->translator->text($language, 'nav.product.' . $product->value),
+                $this->products->url($product, $language),
+                $product->page() === $current,
+                $product->isExternal(),
+            );
+        }
+        foreach (Page::navigation() as $item) {
+            $items[] = new NavigationItem($this->translator->text($language, 'nav.' . $item->value), $item->path($language), $item === $current);
+        }
+
+        return $items;
     }
 }

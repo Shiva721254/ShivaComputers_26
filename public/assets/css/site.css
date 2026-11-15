@@ -280,3 +280,102 @@ a:hover { color: var(--blue-dark); }
 .safety-list li::marker { color: var(--blue); font-weight: 800; }
 
 .site-footer .footer-links { gap: 0 1.25rem; }
+
+/* Products: home page cards and main menu */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.product-grid > li { display: flex; }
+.product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--accent, var(--blue));
+    border-radius: 6px;
+    color: var(--navy);
+    text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.product-card:hover { color: var(--navy); border-color: var(--accent, var(--blue)); box-shadow: 0 12px 28px -14px rgba(16, 35, 62, 0.35); transform: translateY(-2px); }
+.product-card:focus-visible { outline-offset: 4px; }
+.product-card--software { --accent: var(--blue); }
+.product-card--rescue { --accent: #b45309; }
+.product-card--assist { --accent: #0c7c7c; }
+.product-card--remote { --accent: #6d28d9; }
+.product-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; }
+.product-icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: var(--light-blue);
+    color: var(--accent, var(--blue));
+}
+.product-number { color: var(--border); font-size: 1.6rem; font-weight: 800; line-height: 1; }
+.product-tag { color: var(--accent, var(--blue)); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02em; }
+.product-card h3 { font-size: 1.25rem; }
+.product-card p { color: var(--muted); }
+.product-link { margin-top: auto; padding-top: 0.75rem; color: var(--accent, var(--blue)); font-weight: 700; }
+.product-card:hover .product-link { text-decoration: underline; text-underline-offset: 0.15em; }
+@media (prefers-reduced-motion: reduce) { .product-card { transition: none; } .product-card:hover { transform: none; } }
+
+/* Phone menu: <details>, so it works without JavaScript under the strict Content Security Policy */
+.nav-menu { display: none; position: relative; }
+.nav-menu summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--navy);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+}
+.nav-menu summary::-webkit-details-marker { display: none; }
+.nav-menu summary::before { content: "\2630"; font-size: 1.1rem; }
+.nav-menu[open] summary::before { content: "\2715"; }
+.nav-menu-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: min(320px, calc(100vw - 2rem));
+    padding: 0.5rem 1rem 0.75rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 16px 36px -16px rgba(16, 35, 62, 0.4);
+}
+.nav-menu-panel ul { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.nav-menu-panel a { display: flex; align-items: center; min-height: 48px; padding: 0 0.25rem; border-bottom: 1px solid var(--border); color: var(--navy); font-weight: 600; text-decoration: none; }
+.nav-menu-panel a[aria-current="page"] { color: var(--blue); }
+.nav-menu-panel .lang-switch { color: var(--blue); border-bottom: 0; }
+
+/* Below 1100px the eight menu items no longer fit on one line (measured in both languages). */
+@media (max-width: 1099px) {
+    .site-nav { display: none; }
+    .nav-menu { display: block; }
+}
+
+/* Eight menu items: slightly tighter spacing so the desktop menu stays on one line */
+.site-header .wrap { column-gap: 1.5rem; }
+.site-nav { column-gap: 1.1rem; }
+.site-nav ul { column-gap: 1.1rem; }
+.site-nav a { font-size: 1rem; }
