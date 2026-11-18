@@ -21,6 +21,21 @@ final class FileRepositoryTest extends TestCase
         self::assertSame('Study project, team of 4', $repository->getAll(Language::English)[0]->label);
     }
 
+    public function testEveryProjectImageExistsAndHasAltText(): void
+    {
+        $repository = new FileProjectRepository(self::DATA . '/projects.php');
+
+        foreach ([Language::Dutch, Language::English] as $language) {
+            foreach ($repository->getAll($language) as $project) {
+                if ($project->image === null) {
+                    continue;
+                }
+                self::assertFileExists(__DIR__ . '/../../public' . $project->image, $project->name);
+                self::assertNotSame('', $project->imageAlt, $project->name . ' needs alt text');
+            }
+        }
+    }
+
     public function testOfferingsAreReturnedInTheRequestedLanguage(): void
     {
         $repository = new FileOfferingRepository(self::DATA . '/offerings.php');

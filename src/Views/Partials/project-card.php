@@ -6,7 +6,12 @@
  */
 ?>
 <article class="project">
-<?php if ($page->showScreenshotPlaceholders): ?>
+<?php if ($project->image !== null): ?>
+    <a class="project-image-link" href="<?= e($project->image) ?>">
+        <img class="project-image" src="<?= e($project->image) ?>" alt="<?= e($project->imageAlt) ?>" width="1280" height="800" loading="lazy">
+        <span class="visually-hidden"><?= e($t->text('portfolio.image_open')) ?></span>
+    </a>
+<?php elseif ($page->showScreenshotPlaceholders): ?>
     <div class="screenshot-placeholder" aria-hidden="true"><?= e($t->text('portfolio.placeholder')) ?></div>
 <?php endif; ?>
     <p class="project-label"><?= e($project->label) ?></p>

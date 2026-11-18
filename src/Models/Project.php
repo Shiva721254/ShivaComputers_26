@@ -14,6 +14,8 @@ final readonly class Project
         public bool $featured,
         public string $label,
         public string $description,
+        public ?string $image = null,
+        public string $imageAlt = '',
     ) {
     }
 }

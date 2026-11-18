@@ -24,6 +24,8 @@ final class FileProjectRepository implements IProjectRepository
                 $row['featured'],
                 $row['label'][$language->value],
                 $row['description'][$language->value],
+                $row['image'] ?? null,
+                $row['imageAlt'][$language->value] ?? '',
             ),
             require $this->file,
         );
