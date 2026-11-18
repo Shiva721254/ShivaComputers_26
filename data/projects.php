@@ -74,6 +74,11 @@ return [
     ],
            [
            'name' => 'Bid Shop',
+        'image' => '/assets/img/projects/bid-shop.jpg',
+        'imageAlt' => [
+            'nl' => 'Bid Shop in de browser: de lijst met veilingen en een veiling met het huidige bod en een aftelklok.',
+            'en' => 'Bid Shop in the browser: the list of auctions, and an auction with the current bid and a countdown timer.',
+        ],
            'repository' => 'https://github.com/Shiva721254/Web-Shop-Bidding',
            'stack' => ['Vue 3', 'PHP', 'MariaDB', 'JWT'],
            'featured' => false,
