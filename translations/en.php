@@ -64,6 +64,7 @@ return [
     'portfolio.heading' => 'What I have built',
     'portfolio.intro' => 'These are projects from my Information Technology degree at Inholland University of Applied Sciences, not client assignments. The source code is on GitHub.',
     'portfolio.code' => 'View the code on GitHub',
+    'portfolio.image_open' => '(open larger image)',
     'portfolio.placeholder' => 'Screenshot to follow (visible locally only)',
 
     'process.heading' => 'How we work together',

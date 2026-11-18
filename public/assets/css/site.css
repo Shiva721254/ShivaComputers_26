@@ -295,3 +295,9 @@ a:hover { color: var(--blue-dark); }
 .support-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
 .support-card p { margin-top: 0.75rem; font-size: 1.125rem; }
 .support-card .button { flex: 0 0 auto; font-size: 1.0625rem; }
+
+.project-image-link { display: block; margin: -0.25rem 0 0.25rem; border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+.project-image-link:focus-visible { outline-offset: 3px; }
+.project-image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 0.2s ease; }
+.project-image-link:hover .project-image { transform: scale(1.02); }
+@media (prefers-reduced-motion: reduce) { .project-image { transition: none; } }
