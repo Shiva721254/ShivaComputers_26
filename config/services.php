@@ -10,6 +10,16 @@ use App\Controllers\PortfolioController;
 use App\Controllers\PrivacyController;
 use App\Controllers\RemoteSupportController;
 use App\Controllers\SeoController;
+use App\Framework\FormToken;
+use App\Framework\Storage;
+use App\Services\ContactFormService;
+use App\Services\FileMailer;
+use App\Services\FileRateLimiter;
+use App\Services\Interfaces\IContactFormService;
+use App\Services\Interfaces\IMailer;
+use App\Services\Interfaces\IRateLimiter;
+use App\Services\MailFormatter;
+use App\Services\NativeMailer;
 use App\Controllers\ServiceController;
 use App\Framework\Container;
 use App\Framework\Translator;
@@ -43,6 +53,21 @@ return static function (Container $c, array $config, string $root): void {
     $c->set(IOfferingService::class, fn (Container $c) => new OfferingService($c->get(IOfferingRepository::class)));
     $c->set(IBusinessDetailsService::class, fn (Container $c) => new BusinessDetailsService($c->get(IBusinessDetailsRepository::class)));
 
+    // Contact form
+    $c->set(Storage::class, fn () => new Storage($config['storage']));
+    $c->set(FormToken::class, fn (Container $c) => new FormToken($c->get(Storage::class)->secret()));
+    $c->set(IRateLimiter::class, fn (Container $c) => new FileRateLimiter($c->get(Storage::class)->path('rate-limit.json'), $c->get(Storage::class)->secret()));
+    $c->set(MailFormatter::class, fn () => new MailFormatter($config['mail']['from'], $config['mail']['from_name']));
+    $c->set(FileMailer::class, fn (Container $c) => new FileMailer($c->get(Storage::class)->path('unsent'), $c->get(MailFormatter::class)));
+    $c->set(IMailer::class, fn (Container $c) => $config['mail']['transport'] === 'mail'
+        ? new NativeMailer($config['mail']['to'], $c->get(MailFormatter::class), $c->get(FileMailer::class))
+        : $c->get(FileMailer::class));
+    $c->set(IContactFormService::class, fn (Container $c) => new ContactFormService(
+        $c->get(FormToken::class),
+        $c->get(IRateLimiter::class),
+        $c->get(IMailer::class),
+    ));
+
     // Presentation
     $c->set(Translator::class, fn () => new Translator($root . '/translations'));
     $c->set(View::class, fn () => new View($root . '/src/Views'));
@@ -61,7 +86,7 @@ return static function (Container $c, array $config, string $root): void {
     $c->set(ServiceController::class, fn (Container $c) => new ServiceController(...[...$presentation($c), $c->get(IOfferingService::class)]));
     $c->set(PortfolioController::class, fn (Container $c) => new PortfolioController(...[...$presentation($c), $c->get(IProjectService::class)]));
     $c->set(AboutController::class, fn (Container $c) => new AboutController(...$presentation($c)));
-    $c->set(ContactController::class, fn (Container $c) => new ContactController(...$presentation($c)));
+    $c->set(ContactController::class, fn (Container $c) => new ContactController(...[...$presentation($c), $c->get(IContactFormService::class)]));
     $c->set(PrivacyController::class, fn (Container $c) => new PrivacyController(...$presentation($c)));
     $c->set(RemoteSupportController::class, fn (Container $c) => new RemoteSupportController(
         ...[...$presentation($c), RemoteSupportController::validPortalUrl($config['remote_support_url'] ?? null, $config['env'] === 'development')],

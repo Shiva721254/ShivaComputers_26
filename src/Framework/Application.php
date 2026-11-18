@@ -37,7 +37,7 @@ final class Application
             $route = $this->router->dispatch($request->method, $request->path);
 
             return match ($route->type) {
-                RouteResult::FOUND => $this->callController($route),
+                RouteResult::FOUND => $this->callController($route, $request),
                 RouteResult::REDIRECT => Response::redirect($route->location, 301),
                 RouteResult::METHOD_NOT_ALLOWED => Response::text('Method Not Allowed', 405, [
                     'Allow' => implode(', ', [...$route->allowedMethods, 'HEAD']),
@@ -51,13 +51,20 @@ final class Application
         }
     }
 
-    private function callController(RouteResult $route): Response
+    private function callController(RouteResult $route, Request $request): Response
     {
         [$class, $method] = $route->handler;
         $arguments = $route->parameters;
 
         if (isset($arguments['language'])) {
             $arguments['language'] = Language::from($arguments['language']);
+        }
+
+        // Controller methods that declare a $request parameter receive the current request.
+        foreach ((new \ReflectionMethod($class, $method))->getParameters() as $parameter) {
+            if ($parameter->getName() === 'request') {
+                $arguments['request'] = $request;
+            }
         }
 
         return $this->container->get($class)->$method(...$arguments);
