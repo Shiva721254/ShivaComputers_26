@@ -19,6 +19,17 @@
 <?php foreach ($page->alternateUrls as $hreflang => $url): ?>
     <link rel="alternate" hreflang="<?= e($hreflang) ?>" href="<?= e($url) ?>">
 <?php endforeach; ?>
+<?php if ($page->canonicalUrl !== null): ?>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?= e($page->business->name) ?>">
+    <meta property="og:title" content="<?= e($page->title) ?>">
+    <meta property="og:description" content="<?= e($page->description) ?>">
+    <meta property="og:url" content="<?= e($page->canonicalUrl) ?>">
+    <meta property="og:locale" content="<?= $page->language->value === 'nl' ? 'nl_NL' : 'en_GB' ?>">
+<?php endif; ?>
+<?php if ($page->structuredData !== null): ?>
+    <script type="application/ld+json"><?= $page->structuredData ?></script>
+<?php endif; ?>
     <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/css/site.css">
 </head>
