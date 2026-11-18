@@ -6,6 +6,11 @@ declare(strict_types=1);
 return [
     [
         'name' => 'Haarlem Festival',
+        'image' => '/assets/img/projects/haarlem-festival.jpg',
+        'imageAlt' => [
+            'nl' => 'Haarlem Festival in de browser: de homepage met de festivalonderdelen en de checkout met vier stappen en een besteloverzicht.',
+            'en' => 'Haarlem Festival in the browser: the homepage with the festival events, and the four-step checkout with an order summary.',
+        ],
         'repository' => 'https://github.com/Shiva721254/Haarlem-Festival-Project_2026',
         'stack' => ['PHP', 'MariaDB', 'Stripe', 'Docker'],
         'featured' => true,
