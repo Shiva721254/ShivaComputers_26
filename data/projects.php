@@ -38,6 +38,15 @@ return [
     ],
     [
         'name' => 'The Garden Group',
+        'image' => '/assets/img/projects/garden-group.jpg',
+        'imageAlt' => [
+            'nl' => 'Ontwerp van het incidentendashboard van The Garden Group, met aantallen per status, een grafiek per prioriteit en recente incidenten.',
+            'en' => 'Design mockup of The Garden Group incident dashboard, with counts per status, a chart per priority and recent incidents.',
+        ],
+        'imageNote' => [
+            'nl' => 'Ontwerp (mockup), niet de huidige versie van de applicatie.',
+            'en' => 'Design mockup, not the current version of the application.',
+        ],
         'repository' => 'https://github.com/Shiva721254/The_Garden_group',
         'stack' => ['C#', 'ASP.NET Core', 'MongoDB'],
         'featured' => true,

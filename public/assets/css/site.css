@@ -301,3 +301,5 @@ a:hover { color: var(--blue-dark); }
 .project-image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 0.2s ease; }
 .project-image-link:hover .project-image { transform: scale(1.02); }
 @media (prefers-reduced-motion: reduce) { .project-image { transition: none; } }
+
+.project-image-note { margin-top: -0.25rem; color: var(--muted); font-size: 0.85rem; font-style: italic; }
