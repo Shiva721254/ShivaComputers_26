@@ -57,7 +57,8 @@ return [
     'services.heading' => 'Wat ik voor u kan bouwen',
     'services.support_title' => 'Computeronderhoud en IT-ondersteuning',
     'services.support_text' => 'Shiva Computers verzorgt ook reparatie en onderhoud van computers en laptops.',
-    'services.support_link' => 'Hulp op afstand voor Windows-computers',
+    'services.support_remote_text' => 'Bij Windows-computers kan ik ook op afstand helpen, terwijl u elke stap op uw eigen scherm volgt.',
+    'services.support_link' => 'Hulp op afstand',
 
     'portfolio.title' => 'Portfolio',
     'portfolio.heading' => 'Wat ik heb gebouwd',

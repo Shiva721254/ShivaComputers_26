@@ -57,7 +57,8 @@ return [
     'services.heading' => 'What I can build for you',
     'services.support_title' => 'Computer maintenance and IT support',
     'services.support_text' => 'Shiva Computers also repairs and maintains computers and laptops.',
-    'services.support_link' => 'Remote help for Windows computers',
+    'services.support_remote_text' => 'For Windows computers I can also help remotely, while you watch every step on your own screen.',
+    'services.support_link' => 'Get remote help',
 
     'portfolio.title' => 'Portfolio',
     'portfolio.heading' => 'What I have built',
