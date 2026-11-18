@@ -8,11 +8,16 @@ use App\Controllers\HomeController;
 use App\Controllers\PortfolioController;
 use App\Controllers\PrivacyController;
 use App\Controllers\RemoteSupportController;
+use App\Controllers\SeoController;
 use App\Controllers\ServiceController;
 use FastRoute\RouteCollector;
 
 return static function (RouteCollector $routes): void {
     $routes->addRoute('GET', '/', [HomeController::class, 'redirectToDefaultLanguage']);
+
+    // Files for search engines.
+    $routes->addRoute('GET', '/robots.txt', [SeoController::class, 'robots']);
+    $routes->addRoute('GET', '/sitemap.xml', [SeoController::class, 'sitemap']);
 
     // Short links that are easy to say on the phone: shivacomputers.nl/hulp and /help.
     $routes->addRoute('GET', '/hulp', [RemoteSupportController::class, 'startDutch']);

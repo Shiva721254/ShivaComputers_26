@@ -27,6 +27,7 @@ final readonly class PageViewModel
         public BusinessDetails $business,
         public bool $showPreviewNotice,
         public bool $showScreenshotPlaceholders,
+        public ?string $structuredData = null,
     ) {
     }
 
