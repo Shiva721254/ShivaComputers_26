@@ -254,7 +254,6 @@ a:hover { color: var(--blue-dark); }
     padding: 2rem;
     background: var(--light-blue);
     border: 1px solid var(--border);
-    border-left: 6px solid var(--blue);
     border-radius: 6px;
 }
 .support-start > div { flex: 1 1 24rem; min-width: 0; }
@@ -280,3 +279,19 @@ a:hover { color: var(--blue-dark); }
 .safety-list li::marker { color: var(--blue); font-weight: 800; }
 
 .site-footer .footer-links { gap: 0 1.25rem; }
+
+.support-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2.5rem;
+    padding: 2rem;
+    background: var(--light-blue);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+.support-card__text { flex: 1 1 26rem; min-width: 0; }
+.support-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+.support-card p { margin-top: 0.75rem; font-size: 1.125rem; }
+.support-card .button { flex: 0 0 auto; font-size: 1.0625rem; }

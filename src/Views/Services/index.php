@@ -27,10 +27,15 @@
 </section>
 
 <section class="section section--white">
-    <div class="wrap prose">
-        <h2><?= e($t->text('services.support_title')) ?></h2>
-        <p><?= e($t->text('services.support_text')) ?></p>
-        <p><a class="text-link" href="<?= e($page->url('/remote-support')) ?>"><?= e($t->text('services.support_link')) ?></a></p>
+    <div class="wrap">
+        <div class="support-card">
+            <div class="support-card__text">
+                <h2><?= e($t->text('services.support_title')) ?></h2>
+                <p><?= e($t->text('services.support_text')) ?></p>
+                <p><?= e($t->text('services.support_remote_text')) ?></p>
+            </div>
+            <a class="button" href="<?= e($page->url('/remote-support')) ?>"><?= e($t->text('services.support_link')) ?></a>
+        </div>
     </div>
 </section>
 
