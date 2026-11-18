@@ -9,6 +9,7 @@ use App\Controllers\HomeController;
 use App\Controllers\PortfolioController;
 use App\Controllers\PrivacyController;
 use App\Controllers\RemoteSupportController;
+use App\Controllers\SeoController;
 use App\Controllers\ServiceController;
 use App\Framework\Container;
 use App\Framework\Translator;
@@ -65,5 +66,6 @@ return static function (Container $c, array $config, string $root): void {
     $c->set(RemoteSupportController::class, fn (Container $c) => new RemoteSupportController(
         ...[...$presentation($c), RemoteSupportController::validPortalUrl($config['remote_support_url'] ?? null, $config['env'] === 'development')],
     ));
+    $c->set(SeoController::class, fn () => new SeoController($config['base_url'], $config['content_approved']));
     $c->set(ErrorController::class, fn (Container $c) => new ErrorController(...$presentation($c)));
 };
