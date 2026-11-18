@@ -27,7 +27,7 @@ return [
     [
         'title' => ['nl' => 'Professionele websites', 'en' => 'Professional websites'],
         'description' => [
-            'nl' => 'Een duidelijke website waarop klanten snel zien wat u aanbiedt en hoe zij contact opnemen.',
+            'nl' => 'Een duidelijke website waarop klanten snel zien wat u aanbiedt en hoe zij contact met u opnemen.',
             'en' => 'A clear website where customers quickly see what you offer and how to contact you.',
         ],
     ],
