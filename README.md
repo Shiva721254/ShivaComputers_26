@@ -28,6 +28,14 @@ docker run --rm -v "${PWD}:/app" composer:2 update --no-interaction --no-scripts
 docker compose exec web vendor/bin/phpunit
 ```
 
+## Contact form
+
+`POST /{language}/contact` is handled by `ContactController` and `ContactFormService`.
+
+- **Spam protection, without cookies or CAPTCHA:** a hidden trap field, a signed form token that rejects forms sent within 3 seconds or after 2 hours, and at most 5 messages per visitor per hour (IP addresses are stored only as a keyed hash).
+- **Sending:** `MAIL_TRANSPORT=mail` (production default) uses PHP `mail()` on STRATO, from `website@shivacomputers.nl` with the visitor as Reply-To. In development (`file`), messages are only saved to `storage/unsent/`. If `mail()` fails, the message is saved there too, so it is never lost.
+- **Storage:** `storage/` sits next to `public/`, outside the web root. Deployments never overwrite or delete it. It holds the generated secret key (`app.key`), the rate limits and unsent messages.
+
 ## Routes
 
 - `/` redirects to `/en` (English is the default; Dutch is at `/nl`)

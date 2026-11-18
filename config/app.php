@@ -15,6 +15,15 @@ return [
     // production gate: the page then asks visitors to call, and /hulp and /help open that page.
     // Example: 'https://remote.shivacomputers.nl'. The REMOTE_SUPPORT_URL environment variable overrides it.
     'remote_support_url' => getenv('REMOTE_SUPPORT_URL') ?: null,
+    // Private folder for the form's secret key, rate limits and unsent messages. Never inside public/.
+    'storage' => getenv('STORAGE_PATH') ?: dirname(__DIR__) . '/storage',
+    // Contact form email. 'mail' sends with PHP mail() on STRATO; 'file' only saves messages in storage.
+    'mail' => [
+        'transport' => getenv('MAIL_TRANSPORT') ?: ((getenv('APP_ENV') ?: 'production') === 'development' ? 'file' : 'mail'),
+        'to' => 'Shiva.almere@gmail.com',
+        'from' => 'website@shivacomputers.nl',
+        'from_name' => 'Shiva Computers website',
+    ],
     'contact' => [
         'email' => 'Shiva.almere@gmail.com',
         'phone' => '+31 6 28405019',

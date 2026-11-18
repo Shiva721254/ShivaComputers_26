@@ -95,6 +95,7 @@ jobs:
           check /nl 200 || failed=1
           check /en/services 200 || failed=1
           check /en/remote-support 200 || failed=1
+          check /en/contact 200 || failed=1
           check /config/app.php 404 || failed=1
           check /sitemap.xml 200 || failed=1
           check /robots.txt 200 || failed=1
