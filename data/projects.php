@@ -58,6 +58,11 @@ return [
     ],
     [
         'name' => 'Beatrixpark Almere',
+        'image' => '/assets/img/projects/beatrixpark.jpg',
+        'imageAlt' => [
+            'nl' => 'De homepage van de Beatrixpark-website met een groene menubalk, een foto van het park en informatie voor bezoekers.',
+            'en' => 'The Beatrixpark website homepage with a green menu bar, a photo of the park and information for visitors.',
+        ],
         'repository' => 'https://github.com/Shiva721254/Web_Markup_2025',
         'stack' => ['HTML5', 'CSS3'],
         'featured' => false,
