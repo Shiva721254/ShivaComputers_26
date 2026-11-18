@@ -11,6 +11,9 @@
         <img class="project-image" src="<?= e($project->image) ?>" alt="<?= e($project->imageAlt) ?>" width="1280" height="800" loading="lazy">
         <span class="visually-hidden"><?= e($t->text('portfolio.image_open')) ?></span>
     </a>
+<?php if ($project->imageNote !== null): ?>
+    <p class="project-image-note"><?= e($project->imageNote) ?></p>
+<?php endif; ?>
 <?php elseif ($page->showScreenshotPlaceholders): ?>
     <div class="screenshot-placeholder" aria-hidden="true"><?= e($t->text('portfolio.placeholder')) ?></div>
 <?php endif; ?>
