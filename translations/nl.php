@@ -64,6 +64,7 @@ return [
     'portfolio.heading' => 'Wat ik heb gebouwd',
     'portfolio.intro' => 'Dit zijn projecten uit mijn hbo-opleiding Informatica aan Hogeschool Inholland, dus geen klantopdrachten. De broncode staat op GitHub.',
     'portfolio.code' => 'Bekijk de code op GitHub',
+    'portfolio.image_open' => '(grotere afbeelding openen)',
     'portfolio.placeholder' => 'Schermafbeelding volgt (alleen lokaal zichtbaar)',
 
     'process.heading' => 'Zo werken we samen',

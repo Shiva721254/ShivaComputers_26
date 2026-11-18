@@ -17,6 +17,11 @@ return [
     ],
     [
         'name' => 'Chapeau',
+        'image' => '/assets/img/projects/chapeau.jpg',
+        'imageAlt' => [
+            'nl' => 'Chapeau op een tablet: links de plattegrond met vrije en bezette tafels, rechts het opnemen van een bestelling per gast en per gang.',
+            'en' => 'Chapeau on a tablet: on the left the floor plan with free and occupied tables, on the right taking an order per guest and per course.',
+        ],
         'repository' => 'https://github.com/Rakib730066/Chapeau-ordering-system',
         'stack' => ['C#', 'ASP.NET Core MVC', 'SQL Server'],
         'featured' => true,
