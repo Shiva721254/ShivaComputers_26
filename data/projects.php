@@ -68,7 +68,7 @@ return [
         'featured' => false,
         'label' => ['nl' => 'Studieproject', 'en' => 'Study project'],
         'description' => [
-            'nl' => 'Statische, responsieve informatiewebsite over Koningin Beatrixpark, gemaakt met semantische HTML en CSS.',
+            'nl' => 'Statische, responsieve informatiewebsite over het Koningin Beatrixpark, gemaakt met semantische HTML en CSS.',
             'en' => 'Static, responsive information website about Koningin Beatrixpark, made with semantic HTML and CSS.',
         ],
     ],
@@ -84,7 +84,7 @@ return [
            'featured' => false,
            'label' => ['nl' => 'Individueel studieproject', 'en' => 'Individual study project'],
            'description' => [
-               'nl' => 'Webshop waar klanten producten kopen voor een vaste prijs of bieden op veilingen, met inloggen en een aparte REST API.',
+               'nl' => 'Webshop waar klanten producten kopen tegen een vaste prijs of bieden op veilingen, met inloggen en een aparte REST API.',
                'en' => 'Web shop where customers buy products at a fixed price or bid on auctions, with login and a separate REST API.',
            ],
        ],
