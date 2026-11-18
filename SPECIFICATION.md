@@ -17,7 +17,18 @@ Businesses, entrepreneurs and prospective software collaborators. Main visitor j
 
 Public routes have language prefixes `/nl` and `/en`: Home, Services, Portfolio, About, Contact, Privacy, Remote support. Navigation and key copy translated in separate PHP dictionaries. Language switch retains the current route.
 
-Remote support (`/{lang}/remote-support`) is linked from the Services page and the footer, not the main menu, so software development stays the primary positioning. The short links `/hulp` and `/help` go to the support portal when `remote_support_url` is set, otherwise to the information page. The portal is a separate application (`shiva-remote-portal`) and is specified in *Shiva Remote Support — Architecture & Design v3*.
+The main menu lists the four products first, in this fixed order, then Portfolio, About and Contact; Home is reached through the logo. The same order appears as cards on the home page, directly below the hero. Both are generated from `App\Enums\Product`, so they cannot disagree:
+
+| # | Product | Link |
+|---|---|---|
+| 1 | Software & websites | `/{lang}/services` |
+| 2 | Shiva Rescue OS | `https://rescue.shivacomputers.nl/{lang}` |
+| 3 | Shiva Assist | `https://assist.shivacomputers.nl/{lang}` |
+| 4 | Remote help | `/{lang}/remote-support` |
+
+The subdomain addresses come from `product_sites` in `config/app.php` (environment variables `RESCUE_SITE_URL`, `ASSIST_SITE_URL`); only https addresses without a path are accepted. Below 1100 px wide the menu collapses into a `<details>` "Menu" button, which needs no JavaScript.
+
+Remote support (`/{lang}/remote-support`) is in the main menu (as product 4), on the home page, on the Services page and in the footer. The short links `/hulp` and `/help` go to the support portal when `remote_support_url` is set, otherwise to the information page. The portal is a separate application (`shiva-remote-portal`) and is specified in *Shiva Remote Support — Architecture & Design v3*.
 
 ## 4. Visual system
 

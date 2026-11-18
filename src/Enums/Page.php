@@ -15,10 +15,18 @@ enum Page: string
     case RemoteSupport = 'remote-support';
     case NotFound = 'not-found';
 
-    /** @return list<self> */
-    public static function navigation(): array
+    /** Key of this page in the shared Shiva Computers menu (shiva-nav/menu.php), or null when it is not in the menu. */
+    public function navigationKey(): ?string
     {
-        return [self::Home, self::Services, self::Portfolio, self::About, self::Contact];
+        return match ($this) {
+            self::Home => 'home',
+            self::Services => 'services',
+            self::Portfolio => 'portfolio',
+            self::About => 'about',
+            self::Contact => 'contact',
+            self::RemoteSupport => 'remote',
+            self::Privacy, self::NotFound => null,
+        };
     }
 
     public function path(Language $language): string
