@@ -9,6 +9,7 @@ use App\Enums\Page;
 use App\Framework\Translator;
 use App\Models\BusinessDetails;
 use App\Services\Interfaces\IBusinessDetailsService;
+use ShivaNav\Navigation;
 
 final class PageViewModelFactory
 {
@@ -18,6 +19,7 @@ final class PageViewModelFactory
         private readonly string $baseUrl,
         private readonly bool $contentApproved,
         private readonly bool $isDevelopment,
+        private readonly Navigation $navigation,
     ) {
     }
 
@@ -37,14 +39,12 @@ final class PageViewModelFactory
                 'en' => $this->baseUrl . $page->path(Language::English),
                 'x-default' => $this->baseUrl . $page->path(Language::DEFAULT),
             ] : [],
-            navigation: array_map(
-                fn (Page $item): NavigationItem => new NavigationItem(
-                    $this->translator->text($language, 'nav.' . $item->value),
-                    $item->path($language),
-                    $item === $page,
-                ),
-                Page::navigation(),
-            ),
+            shivaNav: $this->navigation->build($language->value, $page->navigationKey(), [[
+                'code' => $language->other()->value,
+                'name' => $this->translator->text($language, 'nav.switch'),
+                'title' => $this->translator->text($language, 'nav.switch_title'),
+                'url' => $page->path($language->other()),
+            ]]),
             languageSwitchUrl: $page->path($language->other()),
             otherLanguage: $language->other(),
             business: $business,

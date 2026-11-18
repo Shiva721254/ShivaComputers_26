@@ -31,7 +31,8 @@
     <script type="application/ld+json"><?= $page->structuredData ?></script>
 <?php endif; ?>
     <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/shiva-nav/shiva-nav.css?v=1">
+    <link rel="stylesheet" href="/assets/css/site.css?v=3">
 </head>
 <body>
 <a class="skip-link" href="#main"><?= e($t->text('nav.skip')) ?></a>
@@ -39,20 +40,7 @@
 <div class="preview-notice"><div class="wrap"><?= e($t->text('notice.preview')) ?></div></div>
 <?php endif; ?>
 <header class="site-header">
-    <div class="wrap">
-        <a class="brand" href="<?= e($page->url()) ?>">
-            <img src="/assets/img/favicon.svg" alt="" width="32" height="32">
-            <?= e($page->business->name) ?>
-        </a>
-        <nav class="site-nav" aria-label="<?= e($t->text('nav.label')) ?>">
-            <ul>
-<?php foreach ($page->navigation as $item): ?>
-                <li><a href="<?= e($item->url) ?>"<?= $item->isCurrent ? ' aria-current="page"' : '' ?>><?= e($item->label) ?></a></li>
-<?php endforeach; ?>
-            </ul>
-            <a class="lang-switch" href="<?= e($page->languageSwitchUrl) ?>" lang="<?= e($page->otherLanguage->value) ?>" hreflang="<?= e($page->otherLanguage->value) ?>"><?= e($t->text('nav.switch')) ?></a>
-        </nav>
-    </div>
+<?php $shivaNav = $page->shivaNav; require __DIR__ . '/../../../shiva-nav/header.php'; ?>
 </header>
 <main id="main">
 <?= $content ?>

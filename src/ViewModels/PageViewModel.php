@@ -12,7 +12,7 @@ final readonly class PageViewModel
 {
     /**
      * @param array<string, string> $alternateUrls hreflang value => URL
-     * @param list<NavigationItem> $navigation
+     * @param array<string, mixed> $shivaNav the shared top bar, built by ShivaNav\Navigation (shiva-nav/)
      */
     public function __construct(
         public Language $language,
@@ -21,7 +21,7 @@ final readonly class PageViewModel
         public string $robots,
         public ?string $canonicalUrl,
         public array $alternateUrls,
-        public array $navigation,
+        public array $shivaNav,
         public string $languageSwitchUrl,
         public Language $otherLanguage,
         public BusinessDetails $business,

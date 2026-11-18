@@ -24,6 +24,12 @@ return [
         'from' => 'website@shivacomputers.nl',
         'from_name' => 'Shiva Computers website',
     ],
+    // Product sites on their own subdomain, linked from the main menu and the home page.
+    // Only https addresses without a path are accepted. Override locally with the environment variables.
+    'product_sites' => [
+        'rescue' => getenv('RESCUE_SITE_URL') ?: 'https://rescue.shivacomputers.nl',
+        'assist' => getenv('ASSIST_SITE_URL') ?: 'https://assist.shivacomputers.nl',
+    ],
     'contact' => [
         'email' => 'Shiva.almere@gmail.com',
         'phone' => '+31 6 28405019',

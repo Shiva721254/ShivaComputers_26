@@ -12,6 +12,7 @@ use App\Framework\View;
 use App\Services\Interfaces\IOfferingService;
 use App\Services\Interfaces\IProjectService;
 use App\ViewModels\PageViewModelFactory;
+use App\ViewModels\ProductLinks;
 
 final class HomeController extends Controller
 {
@@ -21,6 +22,7 @@ final class HomeController extends Controller
         Translator $translator,
         private readonly IOfferingService $offerings,
         private readonly IProjectService $projects,
+        private readonly ProductLinks $products,
     ) {
         parent::__construct($view, $pages, $translator);
     }
@@ -35,6 +37,7 @@ final class HomeController extends Controller
     public function index(Language $language): Response
     {
         return $this->render($language, Page::Home, [
+            'products' => $this->products->cards($language),
             'offerings' => $this->offerings->getAll($language),
             'projects' => $this->projects->getFeatured($language),
         ]);

@@ -45,8 +45,8 @@ jobs:
 
       - name: Set file permissions
         run: |
-          find config data public src translations vendor -type d -exec chmod 755 {} +
-          find config data public src translations vendor -type f -exec chmod 644 {} +
+          find config data public shiva-nav src translations vendor -type d -exec chmod 755 {} +
+          find config data public shiva-nav src translations vendor -type f -exec chmod 644 {} +
 
       - name: Trust only the known STRATO server key
         run: |
@@ -77,6 +77,7 @@ jobs:
           mirror --reverse --delete --verbose=1 data         $REMOTE_DIR/data
           mirror --reverse --delete --verbose=1 translations $REMOTE_DIR/translations
           mirror --reverse --delete --verbose=1 vendor       $REMOTE_DIR/vendor
+          mirror --reverse --delete --verbose=1 shiva-nav    $REMOTE_DIR/shiva-nav
           mirror --reverse --delete --verbose=1 src          $REMOTE_DIR/src
           mirror --reverse --delete --verbose=1 public       $REMOTE_DIR/public
           bye

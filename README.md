@@ -47,6 +47,21 @@ docker compose exec web vendor/bin/phpunit
 
 Routes are defined in `config/routes.php`.
 
+## Products: main menu and home page cards
+
+The main menu shows the four products first, then Portfolio, About and Contact (Home is the logo). The home page shows the same four as cards below the hero. Both come from `src/Enums/Product.php`, so changing the order there changes both.
+
+| # | Product | Link | Text keys |
+|---|---|---|---|
+| 1 | Software & websites | `/{language}/services` | `products.software.*`, `nav.product.software` |
+| 2 | Shiva Rescue OS | `https://rescue.shivacomputers.nl/{language}` | `products.rescue.*`, `nav.product.rescue` |
+| 3 | Shiva Assist | `https://assist.shivacomputers.nl/{language}` | `products.assist.*`, `nav.product.assist` |
+| 4 | Remote help | `/{language}/remote-support` | `products.remote.*`, `nav.product.remote` |
+
+The subdomain addresses are set under `product_sites` in `config/app.php`. Locally, point them at the Docker sites with `RESCUE_SITE_URL=http://localhost:8082` and `ASSIST_SITE_URL=http://localhost:8083` (plain `http://localhost` is accepted only when `APP_ENV` is `development`). Below 1100 px the menu becomes a "Menu" button (`<details>`, no JavaScript).
+
+When `site.css` changes, raise the `?v=` number on the stylesheet link in `src/Views/Layouts/main.php`, so browsers load the new version.
+
 ## Remote support
 
 `/{language}/remote-support` explains the remote computer help service. The sessions themselves run in the separate support portal (`shiva-remote-portal`, on the VPS at `remote.shivacomputers.nl`). This website only links to it, so it stays free of cookies, forms and a database.
