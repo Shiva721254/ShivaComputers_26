@@ -1,0 +1,99 @@
+name: Deploy to STRATO
+
+# Every push to main is tested first. Only when the tests pass is the site
+# uploaded to shivacomputers-live on STRATO, so the server always matches main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Never run two uploads at the same time; a newer push waits for the older one.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  SFTP_HOST: 59923623.ssh.w1.strato.hosting
+  SFTP_USER: stu12140794
+  # Server key checked on first connection on 2026-11-04. If STRATO changes it,
+  # the upload stops instead of sending the password to an unknown server.
+  SFTP_HOST_KEY_FINGERPRINT: SHA256:1gx2w8Rtv3wCgi7Jh8myf/KVd72cRQbow03UP8P095Q
+  REMOTE_DIR: shivacomputers-live
+  SITE_URL: https://shivacomputers.nl
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+
+  deploy:
+    needs: tests
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: Install production packages
+        run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+      - name: Set file permissions
+        run: |
+          find config data public src translations vendor -type d -exec chmod 755 {} +
+          find config data public src translations vendor -type f -exec chmod 644 {} +
+
+      - name: Trust only the known STRATO server key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t ed25519 "$SFTP_HOST" > ~/.ssh/known_hosts 2>/dev/null
+          actual=$(ssh-keygen -lf ~/.ssh/known_hosts | awk '{print $2}')
+          if [ "$actual" != "$SFTP_HOST_KEY_FINGERPRINT" ]; then
+            echo "::error::Server key is $actual, expected $SFTP_HOST_KEY_FINGERPRINT. Upload stopped."
+            exit 1
+          fi
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Upload the site
+        env:
+          LFTP_PASSWORD: ${{ secrets.STRATO_SFTP_PASSWORD }}
+        run: |
+          if [ -z "$LFTP_PASSWORD" ]; then
+            echo "::error::The STRATO_SFTP_PASSWORD secret is not set."
+            exit 1
+          fi
+          lftp --env-password -u "$SFTP_USER" "sftp://$SFTP_HOST" <<EOF
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=yes -o UpdateHostKeys=no"
+          set net:max-retries 2
+          set net:timeout 30
+          mirror --reverse --delete --verbose=1 config       $REMOTE_DIR/config
+          mirror --reverse --delete --verbose=1 data         $REMOTE_DIR/data
+          mirror --reverse --delete --verbose=1 translations $REMOTE_DIR/translations
+          mirror --reverse --delete --verbose=1 vendor       $REMOTE_DIR/vendor
+          mirror --reverse --delete --verbose=1 src          $REMOTE_DIR/src
+          mirror --reverse --delete --verbose=1 public       $REMOTE_DIR/public
+          bye
+          EOF
+
+      - name: Check the live site
+        run: |
+          sleep 5
+          check() {
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL$1")
+            echo "$1 -> $code (expected $2)"
+            [ "$code" = "$2" ]
+          }
+          failed=0
+          check /en 200 || failed=1
+          check /nl 200 || failed=1
+          check /en/services 200 || failed=1
+          check /en/remote-support 200 || failed=1
+          check /config/app.php 404 || failed=1
+          exit $failed
