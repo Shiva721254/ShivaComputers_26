@@ -67,7 +67,22 @@ Only an `https` address without a path is accepted, so the short links cannot be
 4. Upload the project, including `vendor/`, using **SFTP**. Check that `public/.htaccess` is present and URL rewriting works.
 5. Test `/nl`, `/en`, portfolio links and HTTPS, then enable the HTTPS redirect in `public/.htaccess`. If the web root cannot target `public/`, do **not** upload the project into a publicly served directory without restructuring and access restrictions.
 6. Do not deploy unfinished privacy/contact content or placeholder previews as final production content.
-7. GitHub Actions deployment is not configured yet; add it only after SSH/SFTP secrets, target directory and rollback strategy have been verified. Keep credentials in GitHub Secrets, not code.
+
+### Automatic deployment
+
+Every push to `main` runs `.github/workflows/deploy.yml`:
+
+1. The tests run. If any test fails, nothing is uploaded.
+2. Production packages are installed and file permissions are set (folders `755`, files `644`).
+3. The STRATO server key is checked against a fixed fingerprint, so the password is never sent to an unknown server.
+4. `config`, `data`, `translations`, `vendor`, `src` and `public` are mirrored to `shivacomputers-live` over SFTP. Files removed from the repository are removed from the server too.
+5. The live site is checked: `/en`, `/nl`, `/en/services` and `/en/remote-support` must load, and `/config/app.php` must return 404.
+
+The SFTP password is stored as the repository secret `STRATO_SFTP_PASSWORD` (**Settings → Secrets and variables → Actions**). It is never in the code. To deploy again without a new commit, open **Actions → Deploy to STRATO → Run workflow**.
+
+**Rollback:** revert the faulty commit on `main` (or merge a fix). The workflow then uploads the previous version.
+
+Tests also run on every other branch and pull request (`.github/workflows/tests.yml`).
 
 ## Notes
 
