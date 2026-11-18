@@ -9,6 +9,8 @@ services:
     environment:
       APP_ENV: development
       APP_URL: http://localhost:8080
+      # Messages from the contact form are saved here instead of being emailed.
+      STORAGE_PATH: /tmp/shivacomputers-storage
     # Only your own code is linked, so vendor/ stays inside the image.
     volumes:
       - ./config:/var/www/html/config:ro

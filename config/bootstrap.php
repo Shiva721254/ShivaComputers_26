@@ -12,6 +12,7 @@ $config = require __DIR__ . '/app.php';
 
 ini_set('display_errors', $config['env'] === 'development' ? '1' : '0');
 ini_set('log_errors', '1');
+date_default_timezone_set('Europe/Amsterdam');
 
 $container = new Container();
 (require __DIR__ . '/services.php')($container, $config, dirname(__DIR__));

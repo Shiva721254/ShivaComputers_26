@@ -30,6 +30,7 @@ return static function (RouteCollector $routes): void {
         $routes->addRoute('GET', '/portfolio', [PortfolioController::class, 'index']);
         $routes->addRoute('GET', '/about', [AboutController::class, 'index']);
         $routes->addRoute('GET', '/contact', [ContactController::class, 'index']);
+        $routes->addRoute('POST', '/contact', [ContactController::class, 'submit']);
         $routes->addRoute('GET', '/privacy', [PrivacyController::class, 'index']);
         $routes->addRoute('GET', '/remote-support', [RemoteSupportController::class, 'index']);
     });
