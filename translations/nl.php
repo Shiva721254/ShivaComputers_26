@@ -84,7 +84,7 @@ return [
     'about.paragraphs' => [
         ['text' => 'Shiva Computers is het IT-bedrijf van Shiva Lamichhane, opgericht in 2019 en ingeschreven bij de Kamer van Koophandel. Als eigenaar ben ik uw vaste aanspreekpunt.'],
         ['text' => 'Naast mijn bedrijf studeer ik Informatica aan Hogeschool Inholland, waar ik werk met full-stack webontwikkeling, databases en back-endsystemen. Ook heb ik het certificaat Microsoft Azure Fundamentals (AZ-900) behaald.'],
-        ['text' => 'Mijn doel is software en websites te bouwen die duidelijk, veilig en goed te onderhouden zijn.'],
+        ['text' => 'Mijn doel is om software en websites te bouwen die duidelijk, veilig en goed te onderhouden zijn.'],
     ],
 
     'contact.title' => 'Contact',
@@ -140,7 +140,7 @@ return [
         ['title' => 'Shiva helpt, u kijkt mee', 'text' => 'U ziet elke handeling op uw scherm. Het ondersteuningsprogramma werkt alleen tijdens uw reparatie; daarna stopt het en blijft er geen toegang op afstand achter.'],
     ],
     'remote.windows_heading' => 'Ondersteunde Windows-versies',
-    'remote.windows_intro' => 'Home- en Pro-edities worden op dezelfde manier geholpen.',
+    'remote.windows_intro' => 'Voor Home- en Pro-edities werkt de hulp op dezelfde manier.',
     'remote.windows_col_version' => 'Windows',
     'remote.windows_col_editions' => 'Edities',
     'remote.windows_col_service' => 'Service',
@@ -150,7 +150,7 @@ return [
         ['version' => 'Windows 8.1', 'editions' => 'Core, Pro', 'service' => 'Naar beste vermogen, met een beveiligingswaarschuwing'],
         ['version' => 'Windows 7 SP1', 'editions' => 'Home Premium, Pro', 'service' => 'Naar beste vermogen, met een beveiligingswaarschuwing'],
     ],
-    'remote.windows_note' => 'Windows 7 en 8.1 krijgen geen beveiligingsupdates meer van Microsoft. Ik help u wel, maar adviseer u over upgraden of vervangen. Windows 10 krijgt alleen nog beveiligingsupdates als het is aangemeld voor Extended Security Updates (ESU) van Microsoft.',
+    'remote.windows_note' => 'Windows 7 en 8.1 krijgen geen beveiligingsupdates meer van Microsoft. Ik help u wel, maar geef u ook advies over upgraden of vervangen. Windows 10 krijgt alleen nog beveiligingsupdates als het is aangemeld voor Extended Security Updates (ESU) van Microsoft.',
     'remote.can_heading' => 'Waarmee ik op afstand kan helpen',
     'remote.can' => [
         ['text' => 'Windows-updates en foutmeldingen'],
